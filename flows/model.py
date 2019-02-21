@@ -1,27 +1,25 @@
 from typing import NamedTuple, Optional, List, Callable
 
 
-class AnsweredQuestion(NamedTuple):
+class Answer(NamedTuple):
     question_id: int
     text: str
-    concept_id: int
 
 
 class Question(NamedTuple):
     id: int
     text: str
-    possible_answers: List[AnsweredQuestion]
+    possible_answers: List[Answer]
 
 
-class Outcome(NamedTuple):
+class FinalDecision(NamedTuple):
     text: str
-    category_iri: str
 
 
 class NextStep(NamedTuple):
     question: Optional[Question]
-    outcome: Optional[Outcome]
+    outcome: Optional[FinalDecision]
 
 
-AnsweringStrategy = Callable[[Question], AnsweredQuestion]
-FlowStrategy = Callable[[List[AnsweredQuestion]], NextStep]
+AnsweringStrategy = Callable[[Question], Answer]
+NextStepStrategy = Callable[[List[Answer]], NextStep]

@@ -1,19 +1,19 @@
 from typing import Set
 
-from flows.model import Question, AnsweredQuestion
+from flows.model import Question, Answer
 
 
-def dummy_strategy(question: Question) -> AnsweredQuestion:
+def answer_first_possible(question: Question) -> Answer:
     return next(iter(question.possible_answers))
 
 
-def concept_based_strategy(question: Question, positive_symptoms: Set[int]) -> AnsweredQuestion:
+def answer_based_on_predefined_text(question: Question, predefined_texts_to_say_yes_to: Set[str]) -> Answer:
 
     last_answer_as_default = question.possible_answers[-1]
 
     first_positive_or_last_answer = next((
         answer for answer in question.possible_answers
-        if answer.concept_id in positive_symptoms),
+        if answer.text in predefined_texts_to_say_yes_to),
         last_answer_as_default
     )
 
