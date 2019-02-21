@@ -14,6 +14,7 @@ def simulate(
         steps.append(next_step)
 
         if next_step.question is not None:
-            answers = answers + [answering_strategy(next_step.question)]
+            chosen_answer = answering_strategy(next_step.question)
+            answers.append(chosen_answer)
         else:
             return answers, steps
